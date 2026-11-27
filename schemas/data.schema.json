@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Файл даних ~/.personal_assistant/data.json",
+  "type": "object",
+  "required": ["version", "contacts", "notes"],
+  "properties": {
+    "version": { "const": 1 },
+    "contacts": { "type": "array", "items": { "$ref": "contact.schema.json" } },
+    "notes": { "type": "array", "items": { "$ref": "note.schema.json" } }
+  }
+}

@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Caches
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Дані користувача (не комітимо)
+data/
+*.json.bak
+data.json
+*.pkl
+*.db
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store

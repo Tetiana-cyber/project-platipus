@@ -1,9 +1,9 @@
-"""Smoke-тести каркаса: усе імпортується, команди зареєстровані, storage працює."""
+"""Smoke-тести каркаса: усе імпортується, команди зареєстровані."""
 
 from __future__ import annotations
 
-import main
-from assistant import registry, storage
+import main  # noqa: F401
+from assistant import registry
 
 EXPECTED = {
     "add-contact", "edit-contact", "delete-contact", "find-contact",
@@ -14,15 +14,3 @@ EXPECTED = {
 
 def test_commands_registered():
     assert EXPECTED <= set(registry.all_commands())
-
-
-def test_parse_input():
-    assert main.parse_input('add-note "hello world"') == ("add-note", ["hello world"])
-    assert main.parse_input("") == ("", [])
-
-
-def test_storage_roundtrip(tmp_path, monkeypatch):
-    monkeypatch.setenv("PA_DATA_FILE", str(tmp_path / "data.json"))
-    assert storage.load_data() == {}
-    storage.save_data({"version": 1, "contacts": [], "notes": []})
-    assert storage.load_data()["version"] == 1

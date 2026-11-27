@@ -1,0 +1,16 @@
+[project]
+name = "project-platipus"
+version = "0.1.0"
+description = "Персональний помічник: контакти й нотатки (CLI)"
+requires-python = ">=3.10"
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

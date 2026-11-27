@@ -1,26 +1,29 @@
+from types import SimpleNamespace
 from unittest.mock import patch
 
 import pytest
-
-from assistant.context import Context
-from assistant.exceptions import ValidationError
-from assistant.notes.commands import find_note
 from assistant.notes.models import Note
 
+from assistant.exceptions import ValidationError
+from assistant.notes.book import NoteBook
+from assistant.notes.commands import find_note
 
-def _make_note(
-    note_id: int, text: str, tags: list[str] | None = None
-) -> Note:
+
+def _make_note(note_id: int, text: str, tags: list[str] | None = None) -> Note:
     note = Note.__new__(Note)
     note.id = note_id
     note.text = text
     note.tags = tags or []
-    note.created_at = "2026-11-28T01:48:00"
+    note.created_at = "2026-11-28T01:51:00"
     return note
 
 
+def _make_ctx() -> SimpleNamespace:
+    return SimpleNamespace(notes=NoteBook())
+
+
 def test_find_note_casefold_after_trim_and_keeps_order():
-    ctx = Context()
+    ctx = _make_ctx()
     n1 = _make_note(1, "Daily standup", ["work"])
     n2 = _make_note(2, "Team Meeting notes", ["sync"])
     n3 = _make_note(3, "Another MEETING recap", ["archive"])
@@ -39,7 +42,7 @@ def test_find_note_casefold_after_trim_and_keeps_order():
 
 
 def test_find_note_searches_only_text_not_tags():
-    ctx = Context()
+    ctx = _make_ctx()
     ctx.notes.data = {1: _make_note(1, "Buy groceries", ["meeting"])}
 
     with patch("assistant.notes.commands.print_message") as mock_print:
@@ -48,7 +51,7 @@ def test_find_note_searches_only_text_not_tags():
 
 
 def test_find_note_no_matches_calls_print_message_and_keeps_data():
-    ctx = Context()
+    ctx = _make_ctx()
     original = _make_note(1, "Buy coffee", ["food"])
     ctx.notes.data = {1: original}
 
@@ -61,7 +64,9 @@ def test_find_note_no_matches_calls_print_message_and_keeps_data():
 
 
 def test_find_note_empty_query_raises_validation_error():
-    ctx = Context()
-    with patch("assistant.notes.commands.ask", return_value="   "):
-        with pytest.raises(ValidationError):
-            find_note([], ctx)
+    ctx = _make_ctx()
+    with (
+        patch("assistant.notes.commands.ask", return_value="   "),
+        pytest.raises(ValidationError),
+    ):
+        find_note([], ctx)

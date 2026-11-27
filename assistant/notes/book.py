@@ -25,9 +25,7 @@ class NoteBook:
             raise ValidationError("Пошуковий запит не може бути порожнім.")
 
         return [
-            note
-            for note in self.data.values()
-            if normalized in note.text.casefold()
+            note for note in self.data.values() if normalized in note.text.casefold()
         ]
 
     def search_by_tag(self, tag: str) -> list[Note]:

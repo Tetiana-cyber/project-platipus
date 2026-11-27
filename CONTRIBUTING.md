@@ -23,10 +23,10 @@ ruff check . && ruff format --check .   # лінтер і формат
 
 | Файли | Owner | Що робить |
 |---|---|---|
-| `main.py`, `assistant/{registry,ui,storage,context,suggest,exceptions}.py`, `schemas/`, CONTRIBUTING | **TL** | Цикл CLI, реєстр команд, спільний UI, збереження, контракти |
-| `assistant/contacts/*` | **Dev 1** | Контакти: поля, валідація, книга, команди, іменинники |
-| `assistant/notes/*` | **Dev 2** | Нотатки: теги, пошук, сортування, команди |
-| `tests/`, `README.md`, Ruff/CI, Trello | **Scrum Master** | Тести, документація, якість процесу |
+| `main.py`, `assistant/{registry,ui,storage,context,suggest,exceptions}.py`, `schemas/`, CONTRIBUTING | **TL — Тетяна У.** | Цикл CLI, реєстр команд, спільний UI, збереження, контракти |
+| `assistant/contacts/*` | **Dev 1 — Тетяна** | Контакти: поля, валідація, книга, команди, іменинники |
+| `assistant/notes/*` | **Dev 2 — Нік** | Нотатки: теги, пошук, сортування, команди |
+| `tests/`, `README.md`, Ruff/CI, Trello | **Scrum Master — Олена** | Тести, документація, якість процесу |
 
 **Правило:** редагуєте лише файли свого модуля. Потрібна зміна в чужому файлі — створіть issue або напишіть власнику.
 Змінювати сигнатури зі розділу 4 можна лише через PR, який схвалив TL.

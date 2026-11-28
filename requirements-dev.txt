@@ -1,0 +1,3 @@
+# Verified on Python 3.14.8. The project targets Python 3.12 and later.
+pytest==9.2.0
+ruff==0.17.6
